@@ -2,13 +2,15 @@
 module Blocks where
 import CodeWorld
 import System.Random
+import Control.Monad.Random
 
 {- Every piece is represented as a matrix where 1's are represented with a
  - non-white block. 0's are represented with a white block. The matrices have a
  - size of 2x4 blocks.: -}
 
 type Block = Integer
-data Colour = Black | Yellow | Green | Blue | Pink | Purple | Red | Orange
+
+colorSet = [black, yellow, green, blue, pink, purple, red, orange]
 
 {- Define the matrix and row type -}
 type Row = [Block]
@@ -43,9 +45,19 @@ countNonWhiteBlocks matrix
     | length matrix == 0 = 0
     | otherwise = sum (head matrix) + countNonWhiteBlocks (tail matrix)
 
-{- This function picks a random color from the color list -}
-pickRandomColor :: [Color] -> Color
-pickRandomColor colorList = do
-    let gen = RandomGen.newStdGen
-    let randelem = take 1 (randomRs (0, ((length colorList)-1)) gen)
-    colorList !! head randelem
+{- This function picks a random figure. -}
+getRandomFigure :: (MonadRandom m) => [Matrix] -> m Matrix
+getRandomFigure figures = do
+    let l = length figures
+    i <- getRandomR (0, l-1)
+    return (figures !! i)
+ 
+{- This function picks a random colour. -}
+getRandomColour :: (MonadRandom m) => [Color] -> m Color
+getRandomColour colorList = do
+    let l = length colorList
+    i <- getRandomR (0, l-1)
+    return (colorList !! i)
+
+{- This function rotates a figure. -}
+
