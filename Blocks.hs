@@ -3,10 +3,10 @@ module Blocks where
 import CodeWorld
 import System.Random
 import Control.Monad.Random
+import Data.List
 
 {- Every piece is represented as a matrix where 1's are represented with a
- - non-white block. 0's are represented with a white block. The matrices have a
- - size of 2x4 blocks.: -}
+ - non-white block. 0's are represented with a white block.: -}
 
 type Block = Integer
 
@@ -18,26 +18,25 @@ type Matrix = [Row]
 
 {- Define all the tetromino pieces -}
 figureSet :: [Matrix]
-figureSet = [ [[0,0,0,0],
-               [1,1,1,1]],
+figureSet = [ [[1,1,1,1]],
 
-              [[0,0,1,1],
-               [0,0,1,1]],
+              [[1,1],
+               [1,1]],
 
-              [[0,1,1,1],
-               [0,0,1,0]],
+              [[1,1,1],
+               [0,1,0]],
 
-              [[0,1,1,1],
-               [0,0,0,1]],
+              [[1,1,1],
+               [0,0,1]],
 
-              [[0,1,1,1],
-               [0,1,0,0]],
+              [[1,1,1],
+               [1,0,0]],
 
-              [[0,0,1,1],
-               [0,1,1,0]],
+              [[0,1,1],
+               [1,1,0]],
 
-              [[0,1,1,0],
-               [0,0,1,1]] ]
+              [[1,1,0],
+               [0,1,1]] ]
 
 {- This function counts how many white blocks are in a specific matrix. -}
 countNonWhiteBlocks :: Matrix -> Integer
@@ -60,4 +59,5 @@ getRandomColour colorList = do
     return (colorList !! i)
 
 {- This function rotates a figure. -}
-
+rotateFigure :: Matrix -> Matrix
+rotateFigure m = map (reverse) (transpose m)
