@@ -9,7 +9,7 @@ import Data.List
  - non-white block. 0's are represented with a white block.: -}
 
 type Block = Integer
-
+data Action = DownF | RightF | LeftF | RotateF
 colorSet = [black, yellow, green, blue, pink, purple, red, orange]
 
 {- Define the matrix and row type -}
@@ -61,3 +61,28 @@ getRandomColour colorList = do
 {- This function rotates a figure. -}
 rotateFigure :: Matrix -> Matrix
 rotateFigure m = map (reverse) (transpose m)
+
+{- This function shift a figure. -}
+shiftFigure :: Action -> Matrix -> Matrix
+shiftFigure DownF m = (replicate (length (m!!0)) 0):m
+shiftFigure RightF m = map addZero m
+shiftFigure LeftF m = map tail m
+
+{- This function checks if two figures collide. -}
+figureCollide :: Matrix -> Matrix -> Bool
+figureCollide m1 m2 = or bs
+	where bs = (map checkRows (zip m1 m2))
+
+{- This function checks if two rows collide. -}
+checkRows :: (Row, Row) -> Bool
+checkRows rs = or bs
+	where bs = (map checkBlock (zip (fst rs) (snd rs)))
+
+{- This function checks if the block collide. -}
+checkBlock :: (Block, Block) -> Bool
+checkBlock (1,1) = True
+checkBlock bb = False
+
+{- This function adds a Zero. -}
+addZero :: Row -> Row
+addZero r = 0:r
