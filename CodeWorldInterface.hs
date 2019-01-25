@@ -49,7 +49,7 @@ drawTetris tetris = interactionOf tetris handleTime handleEvent createTetris
 {- This function handles the events. -}
 handleEvent :: Event -> TetrisGame -> TetrisGame
 handleEvent (KeyPress key) tetris
-	| key == "Down" = checkStatus (moveDown tetris)
+	| key == "Down" = moveDown tetris
 	| key == "Right" = moveRight tetris
 	| key == "Left" = moveLeft tetris
 	| key == "Ctrl" = moveRotate tetris
@@ -68,7 +68,7 @@ handleTime dt tetris
 	| dt > 0.069 && (level tetris == 8) = moveDown tetris
 	| dt > 0.060 && (level tetris == 9) = moveDown tetris
 	| dt > 0.05 && (level tetris == 10) = moveDown tetris
-	| otherwise = tetris
+	| otherwise = checkStatus tetris
 
 checkStatus :: TetrisGame -> TetrisGame
 checkStatus tg =
@@ -102,7 +102,7 @@ addPoints True tg =
 		tetris = tg {allPieces=newFigures, points=nscore} in tetris
 
 downAllFigures :: Figure -> Figure
-downAllFigures (matrix, color) = ((shiftFigure DownF matrix), red)
+downAllFigures (matrix, color) = ((shiftFigure DownF matrix), color)
 
 {- This function move the figure down/right/left if is possible. If we are in the limit
  - then we are going to create a new piece. -}
