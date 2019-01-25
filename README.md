@@ -20,10 +20,24 @@ Tetrihs is the tetris game implemented in Haskell using CodeWorld library. The p
 ## Structure
 
 There are three principal modules.
-- Figures.hs: Contains all the functions and types related to the figures.
-- Tetris.hs:
-- GameAsCodeWorld.hs:
+- Blocks.hs: Contains all the functions and types related to the figures.
+- Tetris.hs: Contains the entry point to the game.
+- CodeWorldInterface.hs: Contains all the functions and structures needed to play with the CodeWorld interface
+- Scores.hs: Contains all the functions related to the scores management.
 ---
 ## Installation
 
 After clone the repository, follow these steps.
+
+1. Execute ghci
+2. Load the Tetris module with :l Tetris.hs
+3. Execute tetris <level>
+---
+## How to play?
+
+Use the following keys:
+
+1. Down Arrow -> Move a figure down.
+2. Right Arrow -> Move a figure to the right.
+3. Left Arrow -> Move a figure to the left.
+4. Ctrl -> Rotate a figure.
