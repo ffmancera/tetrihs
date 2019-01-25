@@ -7,7 +7,7 @@ import Scores
 {- List of pieces. -}
 initialMatrixes = foldr (++) [] (replicate 400 figureSet)
 initialColors = foldr (++) [] (replicate 400 colorSet)
-aLotOfFigures = zip figureSet colorSet
+aLotOfFigures = zip initialMatrixes initialColors
 {- Main thread of the game. -}
 tetris :: Int -> IO()
 tetris level = do
